@@ -56,6 +56,15 @@ function App() {
           <Col>
             <ProductCard />
           </Col>
+          <Col>
+            <ProductCard />
+          </Col>
+          <Col>
+            <ProductCard />
+          </Col>
+          <Col>
+            <ProductCard />
+          </Col>
         </Row>
       </Container>
     </>
