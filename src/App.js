@@ -10,8 +10,11 @@ import {
   Col,
   Button,
 } from "react-bootstrap";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import ProductCard from "./productCard";
+import { supabase } from "./supabaseclient.js";
+
+// PtJpCraAf9uuflY0
 
 function App() {
   const [name, setName] = useState("");
@@ -19,6 +22,21 @@ function App() {
 
   console.log(name);
   console.log(description);
+
+  useEffect(() => {
+    getProducts();
+  }, [])
+
+  async function getProducts() {
+    try {
+      const {data,error} = await supabase
+      .from("products")
+      .select("*")
+      .limit(10)
+    } catch (error) {
+      alert(error.message);
+    }
+  }
 
   return (
     <>
