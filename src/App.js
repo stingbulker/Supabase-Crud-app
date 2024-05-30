@@ -33,6 +33,8 @@ function App() {
       .from("products")
       .select("*")
       .limit(10)
+      if (error) throw error;
+      
     } catch (error) {
       alert(error.message);
     }
