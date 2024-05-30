@@ -19,6 +19,7 @@ import { supabase } from "./supabaseclient.js";
 function App() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [products, setProducts] = useState([]);
 
   console.log(name);
   console.log(description);
@@ -34,7 +35,9 @@ function App() {
       .select("*")
       .limit(10)
       if (error) throw error;
-      
+      if (data != null) {
+        setProducts(data);
+      }
     } catch (error) {
       alert(error.message);
     }
