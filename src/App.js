@@ -14,6 +14,8 @@ import { useState,useEffect } from "react";
 import ProductCard from "./productCard";
 import { supabase } from "./supabaseclient.js";
 
+
+
 // PtJpCraAf9uuflY0
 
 function App() {
