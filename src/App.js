@@ -10,11 +10,9 @@ import {
   Col,
   Button,
 } from "react-bootstrap";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import ProductCard from "./productCard";
 import { supabase } from "./supabaseclient.js";
-
-
 
 // PtJpCraAf9uuflY0
 
@@ -28,14 +26,14 @@ function App() {
 
   useEffect(() => {
     getProducts();
-  }, [])
+  }, []);
 
   async function getProducts() {
     try {
-      const {data,error} = await supabase
-      .from("products")
-      .select("*")
-      .limit(10)
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .limit(10);
       if (error) throw error;
       if (data != null) {
         setProducts(data);
@@ -44,6 +42,24 @@ function App() {
       alert(error.message);
     }
   }
+
+  async function createProduct() {
+    try {
+      const { data, error } = await supabase
+        .from("products")
+        .insert({
+          name: name,
+          description: description,
+        })
+        .single();
+      if (error) throw error;
+      window.location.reload();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  console.log(products);
 
   return (
     <>
@@ -72,24 +88,19 @@ function App() {
               onChange={(e) => setDescription(e.target.value)}
             />
             <br />
-            <Button>Create Product in Supabase DB</Button>
+            <Button onClick={() => createProduct()}>
+              Create Product in Supabase DB
+            </Button>
           </Col>
         </Row>
         <hr />
         <h3>Current Database Items</h3>
         <Row xs={1} lg={3} className="g-4">
-          <Col>
-            <ProductCard />
-          </Col>
-          <Col>
-            <ProductCard />
-          </Col>
-          <Col>
-            <ProductCard />
-          </Col>
-          <Col>
-            <ProductCard />
-          </Col>
+          {products.map((product) => (
+            <Col>
+              <ProductCard product={product} />
+            </Col>
+          ))}
         </Row>
       </Container>
     </>
